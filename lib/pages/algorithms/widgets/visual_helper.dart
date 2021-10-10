@@ -102,6 +102,10 @@ class VisualNotifier with ChangeNotifier {
         kDuration = const Duration(microseconds: 300);
         await _insertionSortVisualiser();
         break;
+      case 3:
+        kDuration = const Duration(microseconds: 1000);
+        await _mergeSortVisualiser(arrayOfBars, 0, arrayOfBars.length - 1);
+        break;
     }
   }
 
@@ -173,5 +177,74 @@ class VisualNotifier with ChangeNotifier {
 
     isRunning = false;
     notifyListeners();
+  }
+
+  // Merge sort
+  _mergeSortVisualiser(List<int> mergeArr, int low, int high) async {
+    if (low < high) {
+      if (!isRunning) return;
+
+      int mid = (low + (high - low) / 2).toInt();
+      await _mergeSortVisualiser(mergeArr, low, mid);
+      await _mergeSortVisualiser(mergeArr, mid + 1, high);
+      _updateArrayWithDelay(mergeArr);
+      await merge(mergeArr, low, mid, high);
+    }
+  }
+
+  merge(List<int> mergeArr, int low, int mid, int high) async {
+    int i, j, k;
+    int n1 = mid - low + 1;
+    int n2 = high - mid;
+
+    /* create temp arrays */
+    List<int> L = [], R = [];
+
+    /* Copy data to temp arrays L[] and R[] */
+    for (i = 0; i < n1; i++) {
+      L.add(mergeArr[low + i]); //L[i] = mergeArr[low + i];
+    }
+    for (j = 0; j < n2; j++) {
+      R.add(mergeArr[mid + 1 + j]); //R[j] = mergeArr[mid + 1 + j];
+    }
+
+    i = 0;
+    j = 0;
+    k = low;
+    while (i < n1 && j < n2) {
+      if (!isRunning) return;
+
+      if (L[i] <= R[j]) {
+        mergeArr[k] = L[i];
+        i++;
+      } else {
+        mergeArr[k] = R[j];
+        j++;
+      }
+      await _updateArrayWithDelay(mergeArr);
+      k++;
+    }
+
+    while (i < n1) {
+      if (!isRunning) return;
+      mergeArr[k] = L[i];
+      i++;
+      k++;
+    }
+
+    while (j < n2) {
+      if (!isRunning) return;
+      mergeArr[k] = R[j];
+      j++;
+      k++;
+    }
+  }
+
+  _updateArrayWithDelay(List<int> updatedArr) async {
+    await Future.delayed(kDuration, () {
+      arrayOfBars = List.from(updatedArr);
+      if (isSorted()) isRunning = false;
+      notifyListeners();
+    });
   }
 }
