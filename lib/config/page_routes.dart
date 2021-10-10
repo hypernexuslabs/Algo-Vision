@@ -1,4 +1,4 @@
-import 'package:algo_vision/pages/algorithms/algorithm_visualizer_page.dart';
+import 'package:algo_vision/pages/algorithms/algorithm_visualizer.dart';
 import 'package:algo_vision/pages/home/home_page.dart';
 import 'package:get/get.dart';
 
@@ -13,8 +13,8 @@ class AppPages {
       page: () => const HomePage(),
     ),
     GetPage(
-      name: AlgorithmVisualizerPage.routeName,
-      page: () => const AlgorithmVisualizerPage(),
+      name: AlgorithmVisualizer.routeName,
+      page: () => const AlgorithmVisualizer(),
     ),
   ];
 }

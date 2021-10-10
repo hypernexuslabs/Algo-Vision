@@ -1,25 +1,35 @@
+import 'package:flutter/material.dart';
 import 'package:algo_vision/config/app_colors.dart';
 import 'package:algo_vision/pages/algorithms/widgets/visual_helper.dart';
-import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:get/get.dart';
 
 ///
 /// Created by Auro (auro@smarttersstudio.com) on 10/10/21 at 6:21 pm
 ///
 
-class AlgorithmVisualizerPage extends StatefulWidget {
+class AlgorithmVisualizer extends StatefulWidget {
   static const routeName = "/algo-visualizer";
 
-  const AlgorithmVisualizerPage({Key? key}) : super(key: key);
+  const AlgorithmVisualizer({Key? key}) : super(key: key);
 
   @override
-  _AlgorithmVisualizerPageState createState() =>
-      _AlgorithmVisualizerPageState();
+  _AlgorithmVisualizerState createState() => _AlgorithmVisualizerState();
 }
 
-class _AlgorithmVisualizerPageState extends State<AlgorithmVisualizerPage> {
+class _AlgorithmVisualizerState extends State<AlgorithmVisualizer> {
   double topStatus = 0;
   double bottomStatus = 0;
+  int algorithmType = 0;
+  String appBarName = "";
+
+  @override
+  void initState() {
+    super.initState();
+    Map<String, dynamic> args = Get.arguments ?? {};
+    algorithmType = args["algorithmType"] ?? 0;
+    appBarName = args["appBarName"] ?? "";
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +39,7 @@ class _AlgorithmVisualizerPageState extends State<AlgorithmVisualizerPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Quick Sort"),
+        title: Text("$appBarName"),
       ),
       body: SizedBox(
         height: double.infinity,
@@ -130,100 +140,6 @@ class _AlgorithmVisualizerPageState extends State<AlgorithmVisualizerPage> {
               )
             ],
           ),
-          // child: Column(
-          //   children: [
-          //     Expanded(
-          //       child: Container(
-          //         decoration: const BoxDecoration(
-          //           color: AppColors.primaryLight,
-          //           boxShadow: [
-          //             BoxShadow(
-          //               color: Colors.grey,
-          //               offset: Offset(0.0, 4.0), //(x,y)
-          //               blurRadius: 16.0,
-          //             ),
-          //           ],
-          //         ),
-          //         padding: EdgeInsets.only(
-          //             left: 0, top: topStatus + 8, right: 0, bottom: 0),
-          //         child: Consumer<VisualNotifier>(
-          //           builder: (context, mVisualizer, child) {
-          //             return ClipRRect(
-          //               child: ListView.builder(
-          //                 physics: const NeverScrollableScrollPhysics(),
-          //                 itemBuilder: (context, index) {
-          //                   return Align(
-          //                     alignment: Alignment.bottomCenter,
-          //                     child: Wrap(
-          //                       children: [
-          //                         Container(
-          //                           width: 1,
-          //                           height: mVisualizer.arrayOfBars[index]
-          //                               .toDouble(),
-          //                           color: AppColors.primary,
-          //                         ),
-          //                       ],
-          //                     ),
-          //                   );
-          //                 },
-          //                 scrollDirection: Axis.horizontal,
-          //                 itemCount: mVisualizer.arrayOfBars.length,
-          //               ),
-          //             );
-          //           },
-          //         ),
-          //       ),
-          //     ),
-          //     Consumer<VisualNotifier>(builder: (context, mVisualizer, child) {
-          //       return Padding(
-          //         padding: const EdgeInsets.all(8.0),
-          //         child: Row(
-          //           children: [
-          //             Expanded(
-          //               child: Card(
-          //                   shape: RoundedRectangleBorder(
-          //                       borderRadius: BorderRadius.circular(8)),
-          //                   color: mVisualizer.isRunning
-          //                       ? AppColors.red
-          //                       : AppColors.primary,
-          //                   child: TextButton(
-          //                     child: Text(
-          //                       mVisualizer.isRunning ? "Stop" : "Start",
-          //                       style: const TextStyle(color: Colors.white),
-          //                     ),
-          //                     onPressed: () async {
-          //                       if (mVisualizer.isRunning) {
-          //                         mVisualizer.isRunning = false;
-          //                       } else {
-          //                         await mVisualizer.start();
-          //                       }
-          //                     },
-          //                   )),
-          //             ),
-          //             Container(
-          //               width: 8,
-          //             ),
-          //             Card(
-          //               color: AppColors.primary,
-          //               shape: RoundedRectangleBorder(
-          //                   borderRadius: BorderRadius.circular(8)),
-          //               child: IconButton(
-          //                 icon: const Icon(
-          //                   Icons.autorenew_sharp,
-          //                   color: Colors.white,
-          //                 ),
-          //                 onPressed: () => mVisualizer.resetBars(),
-          //               ),
-          //             ),
-          //           ],
-          //         ),
-          //       );
-          //     }),
-          //     SizedBox(
-          //       height: bottomStatus,
-          //     )
-          //   ],
-          // ),
         ),
       ),
     );
