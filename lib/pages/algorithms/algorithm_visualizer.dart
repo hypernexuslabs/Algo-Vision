@@ -45,8 +45,8 @@ class _AlgorithmVisualizerState extends State<AlgorithmVisualizer> {
         height: double.infinity,
         width: double.infinity,
         child: ChangeNotifierProvider<VisualNotifier>(
-          create: (context) =>
-              VisualNotifier((size.width).toInt(), (size.height * 0.6).toInt()),
+          create: (context) => VisualNotifier(
+              (size.width).toInt(), (size.height * 0.6).toInt(), algorithmType),
           child: Stack(
             children: [
               Positioned.fill(

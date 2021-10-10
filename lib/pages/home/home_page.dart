@@ -12,7 +12,11 @@ class HomePage extends StatelessWidget {
 
   const HomePage({Key? key}) : super(key: key);
 
-  final List<String> algorithms = const ["Quick Sort", "Selection Sort"];
+  final List<String> algorithms = const [
+    "Quick Sort",
+    "Selection Sort",
+    "Insertion Sort",
+  ];
 
   @override
   Widget build(BuildContext context) {
