@@ -16,7 +16,8 @@ class HomePage extends StatelessWidget {
     "Quick Sort",
     "Selection Sort",
     "Insertion Sort",
-    "Merge Sort"
+    "Merge Sort",
+    "Heap Sort",
   ];
 
   @override

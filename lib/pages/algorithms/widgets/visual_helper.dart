@@ -106,6 +106,10 @@ class VisualNotifier with ChangeNotifier {
         kDuration = const Duration(microseconds: 1000);
         await _mergeSortVisualiser(arrayOfBars, 0, arrayOfBars.length - 1);
         break;
+      case 4:
+        kDuration = const Duration(microseconds: 1000);
+        await _heapSortVisualiser(arrayOfBars);
+        break;
     }
   }
 
@@ -246,5 +250,49 @@ class VisualNotifier with ChangeNotifier {
       if (isSorted()) isRunning = false;
       notifyListeners();
     });
+  }
+
+  //Heap sort
+  _heapSortVisualiser(List<int> heapArr) async {
+    int n = heapArr.length;
+
+    // Build heap (rearrange array)
+    for (int i = n ~/ 2 - 1; i >= 0; i--) {
+      await heapify(heapArr, n, i);
+    }
+
+    // One by one extract an element from heap
+    for (int i = n - 1; i >= 0; i--) {
+      // Move current root to end
+      int temp = heapArr[0];
+      heapArr[0] = heapArr[i];
+      heapArr[i] = temp;
+      await _updateArrayWithDelay(heapArr);
+      // call max heapify on the reduced heap
+      await heapify(heapArr, i, 0);
+    }
+  }
+
+  heapify(List<int> heapArr, int n, int i) async {
+    int largest = i;
+    int l = 2 * i + 1;
+    int r = 2 * i + 2;
+
+    if (!isRunning) return;
+
+    // If left child is larger than root
+    if (l < n && heapArr[l] > heapArr[largest]) largest = l;
+
+    // If right child is larger than largest so far
+    if (r < n && heapArr[r] > heapArr[largest]) largest = r;
+    // If largest is not root
+    if (largest != i) {
+      int swap = heapArr[i];
+      heapArr[i] = heapArr[largest];
+      heapArr[largest] = swap;
+      await _updateArrayWithDelay(heapArr);
+      // Recursively heapify the affected sub-tree
+      await heapify(heapArr, n, largest);
+    }
   }
 }
