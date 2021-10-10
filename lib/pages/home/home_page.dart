@@ -1,4 +1,4 @@
-import 'package:algo_vision/pages/algorithms/algorithm_visualizer_page.dart';
+import 'package:algo_vision/pages/algorithms/algorithm_visualizer.dart';
 import 'package:algo_vision/widgets/app_primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,7 +28,10 @@ class HomePage extends StatelessWidget {
           child: AppPrimaryButton(
             child: Text("${algorithms[i]}"),
             onPressed: () {
-              Get.toNamed(AlgorithmVisualizerPage.routeName);
+              Get.toNamed(AlgorithmVisualizer.routeName, arguments: {
+                "appBarName": algorithms[i],
+                "algorithmType": i,
+              });
             },
           ),
         ),
