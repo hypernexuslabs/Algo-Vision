@@ -18,7 +18,12 @@ class VisualNotifier with ChangeNotifier {
 
   var algorithmType = 0;
 
-  VisualNotifier(int max, int height) {
+  VisualNotifier(
+    int max,
+    int height,
+    int type,
+  ) {
+    setAlgorithmTypeOnly(type);
     maxBars = max;
     maxHeight = height;
     getVisualBars(max, height);
@@ -43,6 +48,10 @@ class VisualNotifier with ChangeNotifier {
     algorithmType = type;
     resetBars();
     notifyListeners();
+  }
+
+  void setAlgorithmTypeOnly(int type) {
+    algorithmType = type;
   }
 
   void pause() {
@@ -89,6 +98,10 @@ class VisualNotifier with ChangeNotifier {
         kDuration = const Duration(microseconds: 1000);
         await _selectionSortVisualiser();
         break;
+      case 2:
+        kDuration = const Duration(microseconds: 300);
+        await _insertionSortVisualiser();
+        break;
     }
   }
 
@@ -132,5 +145,33 @@ class VisualNotifier with ChangeNotifier {
 
       await swap(i, minIndex);
     }
+  }
+
+  // Insertion sort
+  _insertionSortVisualiser() async {
+    int key, j;
+
+    for (int i = 1; i < arrayOfBars.length; i++) {
+      key = arrayOfBars[i];
+      j = i - 1;
+
+      while (j >= 0 && arrayOfBars[j] > key) {
+        if (!isRunning) return;
+
+        await Future.delayed(kDuration, () {
+          arrayOfBars[j + 1] = arrayOfBars[j];
+          notifyListeners();
+        });
+
+        j = j - 1;
+      }
+
+      await Future.delayed(kDuration, () {
+        arrayOfBars[j + 1] = key;
+      });
+    }
+
+    isRunning = false;
+    notifyListeners();
   }
 }
