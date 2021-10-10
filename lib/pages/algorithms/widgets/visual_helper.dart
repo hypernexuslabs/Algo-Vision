@@ -85,6 +85,10 @@ class VisualNotifier with ChangeNotifier {
         kDuration = const Duration(microseconds: 1000);
         await _quickSort(arrayOfBars, 0, arrayOfBars.length - 1);
         break;
+      case 1:
+        kDuration = const Duration(microseconds: 1000);
+        await _selectionSortVisualiser();
+        break;
     }
   }
 
@@ -110,5 +114,23 @@ class VisualNotifier with ChangeNotifier {
 
     await swap(i + 1, high);
     return (i + 1);
+  }
+
+  // Selection sort
+  _selectionSortVisualiser() async {
+    int minIndex = 0;
+
+    for (int i = 0; i < arrayOfBars.length - 1; i++) {
+      minIndex = i;
+      for (int j = i + 1; j < arrayOfBars.length; j++) {
+        if (!isRunning) return;
+
+        if (arrayOfBars[j] < arrayOfBars[minIndex]) {
+          minIndex = j;
+        }
+      }
+
+      await swap(i, minIndex);
+    }
   }
 }
