@@ -1,3 +1,5 @@
+import 'package:algo_vision/config/app_theme.dart';
+import 'package:algo_vision/config/page_routes.dart';
 import 'package:algo_vision/pages/home/home_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,10 +17,9 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'AlgoVision',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const HomePage(),
+      theme: AppThemes.lightTheme,
+      initialRoute: HomePage.routeName,
+      getPages: AppPages.pages,
     );
   }
 }

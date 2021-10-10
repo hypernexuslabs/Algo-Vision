@@ -45,7 +45,13 @@ class VisualNotifier with ChangeNotifier {
     notifyListeners();
   }
 
+  void pause() {
+    isRunning = false;
+    notifyListeners();
+  }
+
   void resetBars() {
+    isRunning = false;
     getVisualBars(maxBars, maxHeight);
   }
 

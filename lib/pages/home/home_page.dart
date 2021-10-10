@@ -1,12 +1,14 @@
+import 'package:algo_vision/pages/algorithms/algorithm_visualizer_page.dart';
 import 'package:algo_vision/widgets/app_primary_button.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 ///
 /// Created by Auro (auro@smarttersstudio.com) on 10/10/21 at 5:09 pm
 ///
 
 class HomePage extends StatelessWidget {
-  static const route = "/home-page";
+  static const routeName = "/";
 
   const HomePage({Key? key}) : super(key: key);
 
@@ -25,7 +27,9 @@ class HomePage extends StatelessWidget {
           padding: const EdgeInsets.only(bottom: 10),
           child: AppPrimaryButton(
             child: Text("${algorithms[i]}"),
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed(AlgorithmVisualizerPage.routeName);
+            },
           ),
         ),
       ),
