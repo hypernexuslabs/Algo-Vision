@@ -114,6 +114,10 @@ class VisualNotifier with ChangeNotifier {
         kDuration = const Duration(microseconds: 1000);
         await _gnomeSortVisualiser();
         break;
+      case 6:
+        kDuration = const Duration(microseconds: 1000);
+        await _bubbleSort();
+        break;
     }
   }
 
@@ -325,5 +329,27 @@ class VisualNotifier with ChangeNotifier {
 
     isRunning = false;
     notifyListeners();
+  }
+
+  // Bubble Sort
+  _bubbleSort() async {
+    for (int i = 0; i < arrayOfBars.length - 1; i++) {
+      for (int j = 0; j < arrayOfBars.length - 1 - i; j++) {
+        if (arrayOfBars[j] > arrayOfBars[j + 1]) {
+          int tmp = arrayOfBars[j];
+          arrayOfBars[j] = arrayOfBars[j + 1];
+          arrayOfBars[j + 1] = tmp;
+
+          if (isRunning) {
+            await Future.delayed(const Duration(microseconds: 500), () {
+              if (isSorted()) isRunning = false;
+              notifyListeners();
+            });
+          } else {
+            return;
+          }
+        }
+      }
+    }
   }
 }
