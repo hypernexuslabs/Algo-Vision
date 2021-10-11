@@ -1,12 +1,6 @@
-# algo_vision
+## algo_vision
 
-A new Flutter project.
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+![image](https://github.com/anon-000/Algo-Vision-flutter/blob/main/ss_1.png?raw=true)
+![image](https://github.com/anon-000/Algo-Vision-flutter/blob/main/ss_2.png?raw=true)
+![image](https://github.com/anon-000/Algo-Vision-flutter/blob/main/ss_3.png?raw=true)
