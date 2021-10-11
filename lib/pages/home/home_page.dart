@@ -18,6 +18,7 @@ class HomePage extends StatelessWidget {
     "Insertion Sort",
     "Merge Sort",
     "Heap Sort",
+    "Gnome sort"
   ];
 
   @override

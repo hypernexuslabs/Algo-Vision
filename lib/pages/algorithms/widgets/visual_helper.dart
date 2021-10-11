@@ -110,6 +110,10 @@ class VisualNotifier with ChangeNotifier {
         kDuration = const Duration(microseconds: 1000);
         await _heapSortVisualiser(arrayOfBars);
         break;
+      case 5:
+        kDuration = const Duration(microseconds: 1000);
+        await _gnomeSortVisualiser();
+        break;
     }
   }
 
@@ -294,5 +298,32 @@ class VisualNotifier with ChangeNotifier {
       // Recursively heapify the affected sub-tree
       await heapify(heapArr, n, largest);
     }
+  }
+
+  //Gnome sort
+  _gnomeSortVisualiser() async {
+    List<int> gnomeArr = List.from(arrayOfBars);
+    int index = 0;
+
+    while (index < gnomeArr.length) {
+      if (!isRunning) return;
+      if (index == 0) index++;
+      if (gnomeArr[index] >= gnomeArr[index - 1]) {
+        index++;
+      } else {
+        int temp;
+        temp = gnomeArr[index];
+        gnomeArr[index] = gnomeArr[index - 1];
+        gnomeArr[index - 1] = temp;
+        await Future.delayed(const Duration(microseconds: 800), () {
+          arrayOfBars = List.from(gnomeArr);
+          notifyListeners();
+        });
+        index--;
+      }
+    }
+
+    isRunning = false;
+    notifyListeners();
   }
 }
